@@ -17,156 +17,146 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  createPet: Pet;
-  deletePet: Scalars['ID']['output'];
-  updatePet: Pet;
-};
-
-
-export type MutationCreatePetArgs = {
-  age: Scalars['Int']['input'];
-  name: Scalars['String']['input'];
-  ownerName: Scalars['String']['input'];
-  pictureUri?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationDeletePetArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationUpdatePetArgs = {
-  age?: InputMaybe<Scalars['Int']['input']>;
-  id: Scalars['ID']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  ownerName?: InputMaybe<Scalars['String']['input']>;
-  pictureUri?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Pet = {
-  __typename?: 'Pet';
-  age: Scalars['Int']['output'];
+export type Bot = {
+  __typename?: 'Bot';
+  description: Scalars['String']['output'];
+  flow: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  ownerName: Scalars['String']['output'];
-  pictureUri?: Maybe<Scalars['String']['output']>;
+  token: Scalars['String']['output'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createBot: Bot;
+  deleteBot: Scalars['ID']['output'];
+  updateBot: Bot;
+};
+
+
+export type MutationCreateBotArgs = {
+  description: Scalars['String']['input'];
+  flow: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  token: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteBotArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateBotArgs = {
+  description: Scalars['String']['input'];
+  flow: Scalars['String']['input'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  getPet?: Maybe<Pet>;
-  getPets?: Maybe<Array<Maybe<Pet>>>;
+  getBot?: Maybe<Bot>;
+  getBots?: Maybe<Array<Maybe<Bot>>>;
 };
 
 
-export type QueryGetPetArgs = {
+export type QueryGetBotArgs = {
   id: Scalars['ID']['input'];
 };
 
-export type CreatePetMutationVariables = Exact<{
+export type BotListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BotListQuery = { __typename?: 'Query', getBots?: Array<{ __typename?: 'Bot', id: string, name: string, description: string, flow: string } | null> | null };
+
+export type CreateBotMutationVariables = Exact<{
   name: Scalars['String']['input'];
-  age: Scalars['Int']['input'];
-  ownerName: Scalars['String']['input'];
-  pictureUri: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  flow: Scalars['String']['input'];
+  token: Scalars['String']['input'];
 }>;
 
 
-export type CreatePetMutation = { __typename?: 'Mutation', createPet: { __typename?: 'Pet', name: string, ownerName: string, pictureUri?: string | null, age: number, id: string } };
-
-export type PetListQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateBotMutation = { __typename?: 'Mutation', createBot: { __typename?: 'Bot', name: string, description: string, flow: string, token: string } };
 
 
-export type PetListQuery = { __typename?: 'Query', getPets?: Array<{ __typename?: 'Pet', id: string, age: number, name: string, ownerName: string, pictureUri?: string | null } | null> | null };
-
-
-export const CreatePetDocument = gql`
-    mutation CreatePet($name: String!, $age: Int!, $ownerName: String!, $pictureUri: String!) {
-  createPet(
-    name: $name
-    age: $age
-    ownerName: $ownerName
-    pictureUri: $pictureUri
-  ) {
-    name
-    ownerName
-    pictureUri
-    age
+export const BotListDocument = gql`
+    query BotList {
+  getBots {
     id
+    name
+    description
+    flow
   }
 }
     `;
-export type CreatePetMutationFn = Apollo.MutationFunction<CreatePetMutation, CreatePetMutationVariables>;
 
 /**
- * __useCreatePetMutation__
+ * __useBotListQuery__
  *
- * To run a mutation, you first call `useCreatePetMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePetMutation` returns a tuple that includes:
+ * To run a query within a React component, call `useBotListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBotListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBotListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBotListQuery(baseOptions?: Apollo.QueryHookOptions<BotListQuery, BotListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BotListQuery, BotListQueryVariables>(BotListDocument, options);
+      }
+export function useBotListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BotListQuery, BotListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BotListQuery, BotListQueryVariables>(BotListDocument, options);
+        }
+export function useBotListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<BotListQuery, BotListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<BotListQuery, BotListQueryVariables>(BotListDocument, options);
+        }
+export type BotListQueryHookResult = ReturnType<typeof useBotListQuery>;
+export type BotListLazyQueryHookResult = ReturnType<typeof useBotListLazyQuery>;
+export type BotListSuspenseQueryHookResult = ReturnType<typeof useBotListSuspenseQuery>;
+export type BotListQueryResult = Apollo.QueryResult<BotListQuery, BotListQueryVariables>;
+export const CreateBotDocument = gql`
+    mutation CreateBot($name: String!, $description: String!, $flow: String!, $token: String!) {
+  createBot(name: $name, description: $description, flow: $flow, token: $token) {
+    name
+    description
+    flow
+    token
+  }
+}
+    `;
+export type CreateBotMutationFn = Apollo.MutationFunction<CreateBotMutation, CreateBotMutationVariables>;
+
+/**
+ * __useCreateBotMutation__
+ *
+ * To run a mutation, you first call `useCreateBotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBotMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createPetMutation, { data, loading, error }] = useCreatePetMutation({
+ * const [createBotMutation, { data, loading, error }] = useCreateBotMutation({
  *   variables: {
  *      name: // value for 'name'
- *      age: // value for 'age'
- *      ownerName: // value for 'ownerName'
- *      pictureUri: // value for 'pictureUri'
+ *      description: // value for 'description'
+ *      flow: // value for 'flow'
+ *      token: // value for 'token'
  *   },
  * });
  */
-export function useCreatePetMutation(baseOptions?: Apollo.MutationHookOptions<CreatePetMutation, CreatePetMutationVariables>) {
+export function useCreateBotMutation(baseOptions?: Apollo.MutationHookOptions<CreateBotMutation, CreateBotMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreatePetMutation, CreatePetMutationVariables>(CreatePetDocument, options);
+        return Apollo.useMutation<CreateBotMutation, CreateBotMutationVariables>(CreateBotDocument, options);
       }
-export type CreatePetMutationHookResult = ReturnType<typeof useCreatePetMutation>;
-export type CreatePetMutationResult = Apollo.MutationResult<CreatePetMutation>;
-export type CreatePetMutationOptions = Apollo.BaseMutationOptions<CreatePetMutation, CreatePetMutationVariables>;
-export const PetListDocument = gql`
-    query PetList {
-  getPets {
-    id
-    age
-    name
-    ownerName
-    pictureUri
-  }
-}
-    `;
-
-/**
- * __usePetListQuery__
- *
- * To run a query within a React component, call `usePetListQuery` and pass it any options that fit your needs.
- * When your component renders, `usePetListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePetListQuery({
- *   variables: {
- *   },
- * });
- */
-export function usePetListQuery(baseOptions?: Apollo.QueryHookOptions<PetListQuery, PetListQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PetListQuery, PetListQueryVariables>(PetListDocument, options);
-      }
-export function usePetListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PetListQuery, PetListQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PetListQuery, PetListQueryVariables>(PetListDocument, options);
-        }
-export function usePetListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PetListQuery, PetListQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<PetListQuery, PetListQueryVariables>(PetListDocument, options);
-        }
-export type PetListQueryHookResult = ReturnType<typeof usePetListQuery>;
-export type PetListLazyQueryHookResult = ReturnType<typeof usePetListLazyQuery>;
-export type PetListSuspenseQueryHookResult = ReturnType<typeof usePetListSuspenseQuery>;
-export type PetListQueryResult = Apollo.QueryResult<PetListQuery, PetListQueryVariables>;
+export type CreateBotMutationHookResult = ReturnType<typeof useCreateBotMutation>;
+export type CreateBotMutationResult = Apollo.MutationResult<CreateBotMutation>;
+export type CreateBotMutationOptions = Apollo.BaseMutationOptions<CreateBotMutation, CreateBotMutationVariables>;

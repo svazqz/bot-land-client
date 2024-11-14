@@ -1,23 +1,23 @@
 import * as React from 'react';
-import { PetListQuery } from '../../generated/graphql';
+import { BotListQuery } from '../../generated/graphql';
 import './styles.css';
 
 interface Props {
-  data: PetListQuery;
+  data: BotListQuery;
 }
 
-const className = 'PetList';
+const className = 'BotList';
 
-const PetList: React.FC<Props> = ({ data }) => (
+const BotList: React.FC<Props> = ({ data }) => (
   <div className={className}>
     <h3>Launches</h3>
     <ol className={`${className}__list`}>
-      {!!data.getPets &&
-        data.getPets.map(
+      {!!data.getBots &&
+        data.getBots.map(
           (launch, i) =>
             !!launch && (
               <li key={i} className={`${className}__item`}>
-                {launch.ownerName} ({launch.name})
+                {launch.name} ({launch.description})
               </li>
             ),
         )}
@@ -25,4 +25,4 @@ const PetList: React.FC<Props> = ({ data }) => (
   </div>
 );
 
-export default PetList;
+export default BotList;

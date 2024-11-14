@@ -1,14 +1,16 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.css';
-import PetListContainer from './components/PetList';
-import CreatePetContainer from './components/CreatePet';
+import BotListContainer from './components/BotList';
+import CreateBotContainer from './components/CreateBot';
 
 function App() {
+  const [count, setCount] = useState(0);
+
   return (
-    <div className="App">
-      <PetListContainer></PetListContainer>
-      <CreatePetContainer></CreatePetContainer>
-    </div>
+    <>
+      <BotListContainer></BotListContainer>
+      <CreateBotContainer></CreateBotContainer>
+    </>
   );
 }
 
