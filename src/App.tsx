@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import BotListContainer from './components/BotList';
-import CreateBotContainer from './components/CreateBot';
+import BotListContainer from './modules/BotList';
+import CreateBotContainer from './modules/CreateBot';
 
 function App() {
   const [count, setCount] = useState(0);
