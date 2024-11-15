@@ -27,10 +27,9 @@ import { useForm } from 'react-hook-form';
 interface Props {}
 
 const NewBotFormSchema = z.object({
-  name: z.string({ message: 'Name is required' }),
-  description: z.string({ message: 'Name is required' }),
-  flow: z.string({ message: 'Name is required' }),
-  token: z.string({ message: 'Name is required' }),
+  name: z.string().min(1, { message: 'Name is required' }),
+  description: z.string(),
+  token: z.string().min(1, { message: 'Name is required' }),
 });
 
 const CreateBot: React.FC<Props> = () => {
@@ -40,27 +39,27 @@ const CreateBot: React.FC<Props> = () => {
     defaultValues: {
       name: '',
       description: '',
-      flow: '',
       token: '',
     },
   });
 
   function onSubmit(data: z.infer<typeof NewBotFormSchema>) {
-    mutateFunction({
-      variables: {
-        name: 'Test',
-        description: 'Description',
-        token: '98289482409823084',
-        flow: '{}',
-      },
-    });
+    console.log(data);
+    // mutateFunction({
+    //   variables: {
+    //     name: 'Test',
+    //     description: 'Description',
+    //     token: '98289482409823084',
+    //     flow: '{}',
+    //   },
+    // });
   }
 
   return (
     <>
       <Dialog>
         <DialogTrigger>
-          <Button>Create Bot</Button>
+          <Button className="w-64">Create Bot</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -76,12 +75,38 @@ const CreateBot: React.FC<Props> = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Username</FormLabel>
+                        <FormLabel>Bot Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="shadcn" {...field} />
+                          <Input placeholder="bot-name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Descriptionsername</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Description" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="token"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Telegram Bot Token</FormLabel>
+                        <FormControl>
+                          <Input placeholder="token" {...field} />
                         </FormControl>
                         <FormDescription>
-                          This is your public display name.
+                          This is the token provided by BotFather in Telegram.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
