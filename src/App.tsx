@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import BotListContainer from './modules/BotList';
 import CreateBotContainer from './modules/CreateBot';
@@ -19,8 +18,6 @@ function onChange(newValue: any) {
 }
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <ResizablePanelGroup
       direction="horizontal"

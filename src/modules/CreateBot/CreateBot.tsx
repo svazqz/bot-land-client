@@ -33,7 +33,7 @@ const NewBotFormSchema = z.object({
 });
 
 const CreateBot: React.FC<Props> = () => {
-  const [mutateFunction, { data, loading, error }] = useCreateBotMutation();
+  const [_mutateFunction /*{ data, loading, error }*/] = useCreateBotMutation();
   const form = useForm<z.infer<typeof NewBotFormSchema>>({
     resolver: zodResolver(NewBotFormSchema),
     defaultValues: {

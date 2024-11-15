@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useBotListQuery } from '../../generated/graphql';
 import BotList from './BotList';
 
