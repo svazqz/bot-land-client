@@ -33,7 +33,7 @@ const NewBotFormSchema = z.object({
 });
 
 const CreateBot: React.FC<Props> = () => {
-  const [_mutateFunction /*{ data, loading, error }*/] = useCreateBotMutation();
+  const [mutateFunction /*{ data, loading, error }*/] = useCreateBotMutation();
   const form = useForm<z.infer<typeof NewBotFormSchema>>({
     resolver: zodResolver(NewBotFormSchema),
     defaultValues: {
@@ -45,14 +45,14 @@ const CreateBot: React.FC<Props> = () => {
 
   function onSubmit(data: z.infer<typeof NewBotFormSchema>) {
     console.log(data);
-    // mutateFunction({
-    //   variables: {
-    //     name: 'Test',
-    //     description: 'Description',
-    //     token: '98289482409823084',
-    //     flow: '{}',
-    //   },
-    // });
+    mutateFunction({
+      variables: {
+        name: data.name,
+        description: data.description,
+        token: data.token,
+        flow: '{}',
+      },
+    });
   }
 
   return (
